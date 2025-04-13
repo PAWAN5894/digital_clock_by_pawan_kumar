@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Clock Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+    <div class="top-controls">
+        <button id="settings-btn" title="Settings"><i class="fas fa-cog"></i></button>
+        <button id="fullscreen-btn" title="Toggle Fullscreen"><i class="fas fa-expand"></i></button>
+        <button id="music-btn" title="Play Music"><i class="fas fa-music"></i></button>
+        
+        <a href="login.html" id="login-link" class="control-button" title="Login/Account">
+            <i class="fas fa-sign-in-alt"></i> </a>
+        </div>
+
+    <div class="display-container">
+        <div class="clock">00:00:00</div>
+        <div class="date">Sunday, April 13, 2025</div>
+        <div class="location">Fetching location...</div>
+    </div>
+
+    <audio id="background-audio" src="sample.mp3" loop></audio> <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+
+/* Snake & Ladders Specific Styles */
+.snakeladder-container {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+#snakeladder-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6x6 grid */
+    grid-template-rows: repeat(6, 1fr);
+    width: 240px; /* Adjust size */
+    height: 240px;
+    border: 2px solid #28a745; /* Green border */
+    margin-bottom: 15px;
+    background-color: #f0fff0; /* Light green background */
+    position: relative; /* For player token positioning */
+}
+
+.snakeladder-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #adebad; /* Lighter green border */
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #555;
+    position: relative; /* For positioning content like token */
+}
+
+/* Alternate cell background slightly */
+/* .snakeladder-cell:nth-child(odd) { background-color: #e8f8e8; } */
+
+/* Style snake/ladder indicators (simple background colors) */
+.snakeladder-cell.snake-head { background-color: rgba(220, 53, 69, 0.3); /* Light red */ }
+.snakeladder-cell.ladder-base { background-color: rgba(0, 123, 255, 0.2); /* Light blue */ }
+.snakeladder-cell.snake-tail { background-color: rgba(220, 53, 69, 0.1); }
+.snakeladder-cell.ladder-top { background-color: rgba(0, 123, 255, 0.1); }
+
+
+/* Player Token Style */
+.player-token {
+    width: 60%; /* Relative to cell size */
+    height: 60%;
+    background-color: #007bff; /* Player color */
+    border-radius: 50%;
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    position: absolute; /* Position within the cell */
+    /* Centering token */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Ensure token is above cell number */
+    transition: all 0.5s ease-in-out; /* Smooth movement */
+}
+
+
+.snakeladder-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#snakeladder-dice-display {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 5px;
+}
+
+#snakeladder-roll-btn {
+    font-size: 1em;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #ffc107; /* Yellow button */
+    color: #333;
+    transition: background-color 0.2s ease;
+    display: block; /* Make button full width */
+    margin: 5px auto 10px auto; /* Center button */
+}
+
+#snakeladder-roll-btn:hover {
+    background-color: #e0a800;
+}
+#snakeladder-roll-btn:disabled {
+     background-color: #ccc;
+     cursor: not-allowed;
+     opacity: 0.7;
+}
+
+
+#snakeladder-message {
+    font-size: 0.9em;
+    color: #666;
+    min-height: 1.2em;
+}

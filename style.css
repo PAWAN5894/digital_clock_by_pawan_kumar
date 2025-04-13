@@ -1,0 +1,177 @@
+
+body {
+    background-color: #111;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    transition: background-color 0.3s ease, background-image 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+body.dark-mode .settings-panel {
+    background-color: rgba(40, 40, 40, 0.95);
+    border: 1px solid #555;
+    color: #f0f0f0;
+}
+
+body.dark-mode .settings-panel input,
+body.dark-mode .settings-panel select,
+body.dark-mode .settings-panel button {
+    background-color: #444;
+    color: #f0f0f0;
+    border: 1px solid #666;
+}
+
+body.dark-mode .settings-panel button:hover {
+     background-color: #555;
+}
+
+body.dark-mode .settings-panel input[type="color"] {
+     border: 1px solid #666;
+}
+
+
+.display-container {
+    text-align: center;
+    margin-top: -50px;
+}
+
+.clock {
+    font-size: 70px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    transition: color 0.3s ease, font-family 0.3s ease, font-size 0.3s ease;
+}
+
+.date {
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: color 0.3s ease, font-family 0.3s ease;
+}
+
+.location {
+    font-size: 16px;
+    font-style: italic;
+    min-height: 20px;
+    transition: color 0.3s ease, font-family 0.3s ease;
+}
+
+
+.top-controls {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.top-controls button, .control-button{
+    background: rgba(50, 50, 50, 0.7);
+    border: none;
+    color: #eee;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.top-controls button:hover, .control-button:hover {
+    background: rgba(70, 70, 70, 0.9);
+}
+
+
+.settings-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: rgba(50, 50, 50, 0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px 10px;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s, transform 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.settings-panel--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 0.3s ease, visibility 0s linear 0s, transform 0.3s ease;
+}
+
+.settings-panel label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.settings-panel .full-width {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 5px;
+}
+.settings-panel .full-width input {
+     flex-grow: 1;
+}
+
+.settings-panel input[type="color"] {
+    width: 50px;
+    height: 30px;
+    border: 1px solid #777;
+    padding: 0;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.settings-panel input,
+.settings-panel select,
+.settings-panel button {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #333;
+    color: #eee;
+    border: 1px solid #555;
+}
+
+.settings-panel button {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.settings-panel button:hover {
+    background-color: #444;
+}
+
+#close-settings {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100px;
+}

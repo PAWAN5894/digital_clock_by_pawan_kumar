@@ -1,0 +1,106 @@
+
+
+/* Ludo Specific Styles */
+.ludo-container {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Allow container to grow */
+}
+
+.ludo-board-placeholder {
+    width: 200px; /* Adjust size */
+    height: 200px;
+    border: 2px solid #555;
+    position: relative;
+    background-color: #f8f8f8; /* Light background */
+    margin-bottom: 15px;
+    display: flex; /* Use flex for simple centering */
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.ludo-center {
+    width: 60px;
+    height: 60px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    position: absolute; /* Center it */
+}
+
+.ludo-start {
+    width: 50px; /* Size of starting areas */
+    height: 50px;
+    border: 1px solid #999;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* Position starting areas */
+.ludo-red    { background-color: #dc3545; top: 10px; left: 10px; }
+.ludo-blue   { background-color: #007bff; top: 10px; right: 10px; }
+.ludo-yellow { background-color: #ffc107; bottom: 10px; right: 10px; }
+.ludo-green  { background-color: #28a745; bottom: 10px; left: 10px; }
+
+
+.ludo-controls {
+    text-align: center;
+    margin-top: auto; /* Push controls down */
+    padding-top: 10px;
+}
+
+#ludo-turn-indicator {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block; /* Allows background color */
+}
+
+/* Color indicator based on turn */
+#ludo-turn-indicator.red    { background-color: #dc3545; color: white; }
+#ludo-turn-indicator.blue   { background-color: #007bff; color: white; }
+#ludo-turn-indicator.yellow { background-color: #ffc107; color: #333; }
+#ludo-turn-indicator.green  { background-color: #28a745; color: white; }
+
+
+#ludo-dice-display {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    min-width: 50px;
+    min-height: 50px;
+    display: inline-flex; /* Center content */
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#ludo-roll-btn {
+    font-size: 1em;
+    padding: 10px 25px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #5a6268; /* Grey button */
+    transition: background-color 0.2s ease;
+}
+
+#ludo-roll-btn:hover {
+    background-color: #495057;
+}

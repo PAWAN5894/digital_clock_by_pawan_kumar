@@ -1,0 +1,110 @@
+
+/* Sudoku Specific Styles */
+.sudoku-container {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Allow container to grow */
+}
+
+#sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 300px; /* Adjust size as needed */
+    height: 300px;
+    border: 3px solid #333; /* Thick outer border */
+    margin-bottom: 15px;
+    background-color: #fff; /* White background for cells */
+    position: relative; /* For potential overlays or absolute positioning inside */
+}
+
+.sudoku-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc; /* Light border for individual cells */
+    font-size: 1.4em; /* Size of numbers */
+    font-weight: bold;
+}
+
+/* Style input fields within cells */
+.sudoku-cell input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    padding: 0;
+    font-size: inherit; /* Inherit font size from cell */
+    font-weight: normal; /* User input is not bold */
+    color: #007bff; /* Blue for user input */
+    background-color: transparent; /* Make input background transparent */
+    outline: none; /* Remove default focus outline */
+}
+/* Hide spinner arrows on number inputs */
+.sudoku-cell input::-webkit-outer-spin-button,
+.sudoku-cell input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*.sudoku-cell input[type="number"] {
+  -moz-appearance: textfield; 
+}*/
+
+
+/* Style pre-filled cells */
+.sudoku-cell.prefilled {
+    color: #333; /* Darker color for pre-filled numbers */
+    background-color: #e9ecef; /* Slightly different background */
+}
+
+/* Thicker lines for 3x3 subgrids */
+.sudoku-cell:nth-child(3n) {
+    border-right: 2px solid #555;
+}
+.sudoku-cell:nth-child(9n) {
+     border-right: 1px solid #ccc; /* Reset right border for last column */
+}
+#sudoku-grid > div:nth-child(n+19):nth-child(-n+27),
+#sudoku-grid > div:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #555;
+}
+
+/* Style for highlighting errors */
+.sudoku-cell input.error {
+    background-color: rgba(255, 0, 0, 0.2); /* Light red background for error */
+    color: #dc3545; /* Red text color */
+    font-weight: bold;
+}
+.sudoku-cell.prefilled.error { /* Highlight prefilled if part of conflict */
+     background-color: rgba(255, 150, 150, 0.3);
+}
+
+
+.sudoku-controls {
+    margin-bottom: 10px;
+}
+
+.sudoku-controls button {
+    font-size: 0.9em;
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #6c757d;
+    color: #fff;
+    background-color: #6c757d; /* Grey button */
+    transition: background-color 0.2s ease;
+}
+
+.sudoku-controls button:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+#sudoku-message {
+    min-height: 1.2em; /* Reserve space */
+    margin-top: 5px;
+}

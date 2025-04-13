@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdowns - JDRCRM CLOCK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+    <style>
+        /* Styles specific to the countdown page content */
+        .main-content {
+            padding: 30px 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px; /* Adjust as needed */
+            margin-top: 20px;
+        }
+
+        .input-section label {
+            font-weight: bold;
+            margin: 0 5px 0 15px;
+            color: #555;
+        }
+        .input-section input[type="number"] {
+            width: 60px; /* Fixed width for inputs */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            text-align: center;
+        }
+        /* Hide spinner arrows on number inputs */
+        .input-section input::-webkit-outer-spin-button,
+        .input-section input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        /*.input-section input[type="number"] {
+          -moz-appearance: textfield;  Firefox 
+        }*/
+
+        #countdown-display {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 3.5em; /* Large display */
+            color: #333;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border: 1px solid #ddd;
+        }
+
+        .countdown-controls button {
+            font-size: 1.1em;
+            padding: 12px 25px;
+            margin: 0 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        #start-countdown-btn { background-color: #28a745; } /* Green */
+        #start-countdown-btn:hover:not(:disabled) { background-color: #218838; }
+
+        #pause-countdown-btn { background-color: #ffc107; color: #333; } /* Yellow */
+        #pause-countdown-btn:hover:not(:disabled) { background-color: #e0a800; }
+
+        #reset-countdown-btn { background-color: #6c757d; } /* Grey */
+        #reset-countdown-btn:hover:not(:disabled) { background-color: #5a6268; }
+
+        .countdown-controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #end-message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #dc3545; /* Red message */
+            min-height: 1.5em; /* Reserve space */
+        }
+
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <span class="site-title"><a href="index.html">JDRCRM CLOCK</a></span>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Clocks</a></li>
+                    <li><a href="timers.html">Timers</a></li>
+                    <li><a href="stopwatches.html">Stopwatches</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="countdowns.html" class="active">Countdowns</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1>Countdown Timer</h1>
+
+        <div class="countdown-container">
+            <div class="input-section">
+                <label for="hours-input">Hours:</label>
+                <input type="number" id="hours-input" min="0" value="0">
+
+                <label for="minutes-input">Minutes:</label>
+                <input type="number" id="minutes-input" min="0" max="59" value="5">
+
+                <label for="seconds-input">Seconds:</label>
+                <input type="number" id="seconds-input" min="0" max="59" value="0">
+            </div>
+
+            <div id="countdown-display">00:05:00</div>
+
+            <div class="countdown-controls">
+                <button id="start-countdown-btn">Start</button>
+                <button id="pause-countdown-btn" disabled>Pause</button>
+                <button id="reset-countdown-btn">Reset</button>
+            </div>
+
+            <div id="end-message"></div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+   
+         <div class="footer-content">
+             <div class="footer-column">
+                 <h3>Our Site</h3>
+                 <ul>
+                     <li><a href="index.html">Clocks</a></li>
+                     <li><a href="stopwatches.html">Stopwatches</a></li>
+                     <li><a href="countdowns.html">Countdowns</a></li>
+                     <li><a href="games.html">Games</a></li>
+                     <li><a href="#">System Status</a></li>
+                     <li><a href="#">Feedback Hub</a></li>
+                 </ul>
+             </div>
+             <div class="footer-column">
+                 <h3>JDRCRM CLOCK</h3>
+                 <ul>
+                     <li><a href="login.html">Login</a></li>
+                     <li><a href="create_account.html">Create Account</a></li>
+                 </ul>
+             </div>
+             <div class="footer-column">
+                 <h3>More</h3>
+                 <ul>
+                     <li><a href="#">Suggest a Feature Request</a></li>
+                     <li><a href="#">Credits / Contributors</a></li>
+                     <li><a href="#">Acknowledgements</a></li>
+                     <li><a href="#">Privacy Policy</a></li>
+                     <li><a href="#">Support</a></li>
+                 </ul>
+             </div>
+         </div>
+         <div class="footer-bottom">
+             <p>&copy; Copyright JDRCRM CLOCK Online - All rights reserved.</p>
+             <button class="coffee-button">
+                 <i class="fas fa-coffee"></i> Buy me a coffee
+             </button>
+         </div>
+    </footer>
+
+    <script src="countdown.js"></script>
+</body>
+</html>

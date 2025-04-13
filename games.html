@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - JDRCRM CLOCK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css"> 
+    <link rel="stylesheet" href="ludo.css">
+    <link rel="stylesheet" href="sudoku.css">
+    <link rel="stylesheet" href="snackladder.css">
+    <style>
+        /* Styles specific to the games page content */
+        .main-content { 
+            padding: 30px 20px; 
+            text-align: center; 
+            flex-grow: 1;
+         }
+        .games-grid { display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+             gap: 25px; 
+             padding: 10px; 
+             max-width: 1200px; 
+             margin: 0 auto; }
+        .game-card { background-color: #ffffff; 
+            border-radius: 8px; 
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            border: 1px solid #eee; 
+            min-height: 300px; }
+        .game-card:hover { transform: translateY(-5px); 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); }
+        .game-card h2 { margin-top: 0; 
+            margin-bottom: 15px; font-size: 1.4em; color: #333; display: flex; 
+            align-items: center; gap: 10px; }
+        .game-card .card-icon { font-size: 1.5em; color: #4a90e2; }
+        .game-card p { font-size: 0.95em; color: #555; margin-bottom: 20px; }
+        .game-card .placeholder-text, .game-card .implementation-note { font-style: italic; color: #888; font-size: 0.9em; margin-top: 10px; }
+        .game-card .play-button, .game-card .action-button { padding: 10px 20px; border: none; background-color: #4a90e2; color: white; border-radius: 5px; cursor: pointer; font-size: 1em; text-decoration: none; display: inline-block; transition: background-color 0.2s ease; margin-top: auto; }
+        .game-card .play-button:hover, .game-card .action-button:hover { background-color: #357abd; }
+
+        /* Word Power Game Specific Styles */
+        #word-power-game { width: 100%;
+             margin-top: auto; }
+        #wp-definition {
+            font-size: 1.1em; 
+            font-style: italic;
+            color: #444; 
+            margin-bottom: 15px; 
+            padding: 10px;
+            background-color: #f8f9fa; 
+            border-radius: 4px; 
+            border: 1px solid #eee; 
+            min-height: 3em; }
+        #wp-options button { 
+            display: block; 
+            width: 90%; 
+            margin: 8px auto; 
+            padding: 10px; 
+            font-size: 1em; 
+            cursor: pointer; 
+            border: 1px solid #ccc; 
+            background-color: #fff; 
+            border-radius: 4px; 
+            transition: background-color 0.2s, border-color 0.2s; }
+        #wp-options button:hover:not(:disabled) { background-color: #e9ecef; border-color: #bbb; }
+        #wp-options button:disabled { opacity: 0.7; cursor: not-allowed; }
+        #wp-options button.correct { background-color: #d4edda; border-color: #c3e6cb; color: #155724;}
+        #wp-options button.incorrect { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;}
+        #wp-feedback { font-weight: bold; margin-top: 10px; min-height: 1.2em; }
+        #wp-score { margin-top: 15px; font-size: 0.9em; color: #666; }
+
+        /* Chess Board Specific Styles */
+        #chess-board-container {
+             width: 280px; height: 280px; display: grid;
+             grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr);
+             border: 2px solid #663300; margin: 15px auto 10px auto;
+             position: relative;
+        }
+        .chess-square {
+            font-size: 1.8em; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: background-color 0.1s ease;
+        }
+        .chess-square.light { background-color: #f0d9b5; }
+        .chess-square.dark { background-color: #b58863; }
+        .chess-piece { user-select: none; pointer-events: none; }
+        .selected-square { /* Style for the selected square */
+            outline: 3px solid #ffc107; /* Yellow outline */
+            outline-offset: -3px;
+            background-color: rgba(255, 255, 0, 0.3); /* Slight yellow tint */
+        }
+        #chess-turn-indicator {
+            font-weight: bold; margin-top: 5px; font-size: 1em;
+        }
+
+
+        /* Specific Icon Colors */
+        #ludo-card .card-icon { color: #dc3545; } #snake-card .card-icon { color: #28a745; }
+        #sudoku-card .card-icon { color: #6f42c1; } #chess-card .card-icon { color: #343a40; }
+        #word-power-card .card-icon { color: #ffc107; }
+
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <!--Header content remains the same -->
+        <div class="header-content"> <span class="site-title">JDRCRM CLOCK</span> <nav class="main-nav"> <ul> <li><a href="index.html">Clocks</a></li> <li><a href="timers.html">Timers</a></li> <li><a href="stopwatches.html">Stopwatches</a></li> <li><a href="games.html" class="active">Games</a></li> <li><a href="countdowns.html">Countdowns</a></li> <li><a href="login.html">Login</a></li> </ul> </nav> </div>
+    </header>
+
+    <main class="main-content">
+        <h1>Games</h1>
+        <div class="games-grid">
+            <!--Ludo, Snake, Sudoku Cards remain the same -->
+            <div class="game-card" id="ludo-card">
+                <h2><i class="fas fa-dice-four card-icon"></i> Ludo</h2>
+                <p>Roll the dice and race your tokens home! (Basic dice roll implemented)</p>
+            
+                <!--- Basic Ludo Structure -->
+                <div class="ludo-container">
+                    <div class="ludo-board-placeholder">
+                        <!-- Simplified visual representation -->
+                        <div class="ludo-center">Goal</div>
+                        <div class="ludo-start ludo-red"></div>
+                        <div class="ludo-start ludo-blue"></div>
+                        <div class="ludo-start ludo-yellow"></div>
+                        <div class="ludo-start ludo-green"></div>
+                        <!-- Add path indicators if desired -->
+                    </div>
+                    <div class="ludo-controls">
+                        <div id="ludo-turn-indicator">Red's Turn</div>
+                        <div id="ludo-dice-display">?</div>
+                        <button id="ludo-roll-btn">Roll Dice</button>
+                    </div>
+                </div>
+                <!-- End Basic Ludo Structure -->
+            
+                <div class="implementation-note">
+                    Basic dice roll and turn switching implemented. <br>
+                    **No piece movement or game rules.**
+                </div>
+            </div>
+            <div class="game-card" id="snake-card">
+                <h2><i class="fas fa-level-up-alt card-icon"></i> Snake & Ladders</h2>
+                <p>Roll the dice, climb ladders, and avoid snakes to reach the end!</p>
+            
+                <!-- Basic Snake & Ladders Structure -->
+                <div class="snakeladder-container">
+                    <div id="snakeladder-grid">
+                        <!-- Grid cells will be generated by JS -->
+                        <!--Player token will be added/moved by JS -->
+                    </div>
+                    <div class="snakeladder-controls">
+                        <div id="snakeladder-dice-display">?</div>
+                        <button id="snakeladder-roll-btn">Roll Dice</button>
+                        <div id="snakeladder-message">Roll the dice to start!</div>
+                    </div>
+                </div>
+                <!-- End Basic Snake & Ladders Structure -->
+            
+                <div class="implementation-note">
+                    Simplified board (36 squares). Basic movement implemented. <br>
+                    **Single player only.**
+                </div>
+            </div>
+            <div class="game-card" id="sudoku-card">
+                <h2><i class="fas fa-border-all card-icon"></i> Sudoku</h2>
+                <p>Fill the 9x9 grid so each row, column, and 3x3 box contains 1-9.</p>
+            
+                <!-- Basic Sudoku Structure -->
+                <div class="sudoku-container">
+                    <div id="sudoku-grid">
+                        <!-- Grid cells will be generated by JS -->
+                    </div>
+                    <div class="sudoku-controls">
+                        <button id="sudoku-check-btn">Check Board</button>
+                        <button id="sudoku-reset-btn">Reset Board</button>
+                         <!--Add New Puzzle button if multiple puzzles are defined in JS -->
+                         <button id="sudoku-new-btn" style="display: none;">New Puzzle</button>
+                    </div>
+                    <div id="sudoku-message" class="implementation-note">Enter numbers (1-9) in empty cells.</div>
+                </div>
+                <!-- End Basic Sudoku Structure -->
+            
+                <div class="implementation-note">
+                    Basic input and validation implemented using a fixed puzzle. <br>
+                    **No puzzle generation or full solution checking.**
+                </div>
+            </div>
+
+            
+            <div class="game-card" id="chess-card">
+                <h2><i class="fas fa-chess-board card-icon"></i> Chess</h2>
+                <p>Basic interactive board. Click a piece of the current turn's color, then click a destination square.</p>
+                <div id="chess-board-container">
+                    
+                </div>
+                <div id="chess-turn-indicator">White's Turn</div> 
+                <div class="implementation-note">
+                    Basic interaction implemented. <br>
+                    **No rule validation, check/mate detection, or special moves.**
+                </div>
+            </div>
+           
+
+           
+            <div class="game-card" id="word-power-card"> <h2><i class="fas fa-book-open card-icon"></i> Word Power</h2> 
+                <p>Test and improve your vocabulary with this quick quiz!</p> <div id="word-power-game"> 
+                <div id="wp-definition">Loading definition...</div> 
+                <div id="wp-options"> <button class="action-button">Option A</button>
+                     <button class="action-button">Option B</button> <button class="action-button">Option C</button> 
+                     <button class="action-button">Option D</button> </div> <div id="wp-feedback"></div> <div id="wp-score">Score: 0 / 0</div> 
+                    </div> </div>
+
+        </div> 
+    </main>
+
+    <footer class="main-footer">
+       
+         <div class="footer-content"> <div class="footer-column"> <h3>Our Site</h3> <ul> <li><a href="index.html">Clocks</a></li> 
+            <li><a href="stopwatches.html">Stopwatches</a></li>
+             <li><a href="countdowns.html">Countdowns</a></li> 
+             <li><a href="games.html">Games</a></li> 
+             <li><a href="#">System Status</a></li> 
+             <li><a href="#">Feedback Hub</a></li> </ul> </div>
+              <div class="footer-column"> <h3>JDRCRM CLOCK</h3> <ul>
+                 <li><a href="login.html">Login</a></li> 
+                 <li><a href="create_account.html">Create Account</a></li> 
+                </ul> </div> <div class="footer-column"> <h3>More</h3> <ul>
+                     <li><a href="#">Suggest a Feature Request</a></li> 
+                     <li><a href="#">Credits / Contributors</a></li>
+                      <li><a href="#">Acknowledgements</a></li> 
+                      <li><a href="#">Privacy Policy</a></li> 
+                      <li><a href="#">Support</a></li> </ul> </div> </div> 
+                      <div class="footer-bottom"> <p>&copy; Copyright JDRCRM CLOCK Online - All rights reserved.</p>
+                         <button class="coffee-button"> <i class="fas fa-coffee"></i> Buy me a coffee </button> 
+                        </div>
+    </footer>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Games page loaded.");
+
+            // --- Word Power Game Logic (Keep as is) ---
+            const wordPowerContainer = document.getElementById('word-power-game');
+            if (wordPowerContainer) {
+                const definitionElement = document.getElementById('wp-definition'); 
+                const optionsContainer = document.getElementById('wp-options'); 
+                const optionButtons = optionsContainer.querySelectorAll('button');
+                 const feedbackElement = document.getElementById('wp-feedback'); 
+                 const scoreElement = document.getElementById('wp-score');
+                const wordList = [ { definition: "Extremely large or great.", options: ["Minute", "Vast", "Tiny", "Brief"], answer: "Vast" }, { definition: "Happening by chance rather than intention.", options: ["Deliberate", "Planned", "Fortuitous", "Calculated"], answer: "Fortuitous" }, { definition: "A temporary stay.", options: ["Sojourn", "Exile", "Migration", "Journey"], answer: "Sojourn" }, { definition: "Courage in pain or adversity.", options: ["Cowardice", "Timidity", "Fortitude", "Fear"], answer: "Fortitude" }, { definition: "Concise and exact use of words in writing or speech.", options: ["Verbose", "Brevity", "Lengthy", "Loquacious"], answer: "Brevity" }, { definition: "Existing at or from the beginning of time.", options: ["Modern", "Recent", "Primordial", "New"], answer: "Primordial" }, { definition: "Skilful, clever, or ingenious.", options: ["Clumsy", "Inept", "Adroit", "Awkward"], answer: "Adroit" } ];
+                let currentQuestionIndex = -1;
+                 let score = 0; 
+                 let questionsAsked = 0; 
+                 let currentWordData = null;
+                function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { 
+                    const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } }
+                function loadNextQuestion() { currentQuestionIndex++; questionsAsked++; feedbackElement.textContent = ""; optionButtons.forEach(button => { button.disabled = false; button.classList.remove('correct', 'incorrect'); }); if (currentQuestionIndex >= wordList.length) { shuffleArray(wordList); currentQuestionIndex = 0; } currentWordData = wordList[currentQuestionIndex]; definitionElement.textContent = currentWordData.definition; const shuffledOptions = [...currentWordData.options]; shuffleArray(shuffledOptions); optionButtons.forEach((button, index) => { if (shuffledOptions[index]) { button.textContent = shuffledOptions[index]; button.style.display = 'block'; } else { button.style.display = 'none'; } }); updateScoreDisplay(); }
+                function handleAnswer(event) { if (!event.target.matches('button')) return; 
+                const selectedAnswer = event.target.textContent; 
+                const correctAnswer = currentWordData.answer; optionButtons.forEach(button => button.disabled = true); if (selectedAnswer === correctAnswer) { score++; event.target.classList.add('correct'); feedbackElement.textContent = "Correct!"; feedbackElement.style.color = 'green'; } else { event.target.classList.add('incorrect'); feedbackElement.textContent = `Incorrect. The answer was: ${correctAnswer}`; feedbackElement.style.color = 'red'; optionButtons.forEach(button => { if(button.textContent === correctAnswer) { button.classList.add('correct'); } }); } updateScoreDisplay(); setTimeout(loadNextQuestion, 1500); }
+                function updateScoreDisplay() { scoreElement.textContent = `Score: ${score} / ${Math.max(0, questionsAsked -1)}`; }
+                optionsContainer.addEventListener('click', handleAnswer); shuffleArray(wordList); loadNextQuestion();
+            }
+
+            // --- Basic Interactive Chess Logic ---
+            const boardContainer = document.getElementById('chess-board-container');
+            const turnIndicator = document.getElementById('chess-turn-indicator');
+
+            if (boardContainer && turnIndicator) {
+                const pieces = { 'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟', 'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙' };
+                const initialBoardState = [
+                    ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+                    ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+                    ['.', '.', '.', '.', '.', '.', '.', '.'],
+                    ['.', '.', '.', '.', '.', '.', '.', '.'],
+                    ['.', '.', '.', '.', '.', '.', '.', '.'],
+                    ['.', '.', '.', '.', '.', '.', '.', '.'],
+                    ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+                    ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+                ];
+
+                let boardState = JSON.parse(JSON.stringify(initialBoardState));
+                let currentPlayer = 'white';
+                let selectedSquare = null; // { element: sqElement, row: r, col: c, piece: p } - Store element too
+
+                function isWhitePiece(piece) { return piece !== '.' && piece === piece.toUpperCase(); }
+                function isBlackPiece(piece) { return piece !== '.' && piece === piece.toLowerCase(); }
+
+                function renderChessBoard() {
+                    boardContainer.innerHTML = ''; // Clear existing board
+                    for (let row = 0; row < 8; row++) {
+                        for (let col = 0; col < 8; col++) {
+                            const square = document.createElement('div');
+                            square.classList.add('chess-square');
+                            const isLight = (row + col) % 2 === 0;
+                            square.classList.add(isLight ? 'light' : 'dark');
+                            square.dataset.row = row;
+                            square.dataset.col = col;
+
+                            const pieceChar = boardState[row][col];
+                            if (pieceChar !== '.') {
+                                const pieceSpan = document.createElement('span');
+                                pieceSpan.classList.add('chess-piece');
+                                pieceSpan.textContent = pieces[pieceChar] || '';
+                                pieceSpan.style.color = isWhitePiece(pieceChar) ? '#edebe9' : '#3a3836';
+                                square.appendChild(pieceSpan);
+                            }
+                            // Re-apply selection highlight if this square is selected
+                            if (selectedSquare && selectedSquare.row === row && selectedSquare.col === col) {
+                                square.classList.add('selected-square');
+                            }
+                            boardContainer.appendChild(square);
+                        }
+                    }
+                    turnIndicator.textContent = `${currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1)}'s Turn`;
+                    // console.log("Chessboard rendered. Turn:", currentPlayer);
+                }
+
+                // --- Refined Click Handler ---
+                function handleSquareClick(event) {
+                    const squareElement = event.target.closest('.chess-square');
+                    if (!squareElement) return;
+
+                    const row = parseInt(squareElement.dataset.row);
+                    const col = parseInt(squareElement.dataset.col);
+                    const clickedPiece = boardState[row][col];
+                    const clickedPieceIsWhite = isWhitePiece(clickedPiece);
+                    const clickedPieceIsBlack = isBlackPiece(clickedPiece);
+
+                    if (selectedSquare) { // A piece is already selected
+                        const sourceRow = selectedSquare.row;
+                        const sourceCol = selectedSquare.col;
+                        const sourceElement = selectedSquare.element; // Get the previously selected element
+
+                        // Case 1: Clicked the same square again (deselect)
+                        if (row === sourceRow && col === sourceCol) {
+                            selectedSquare = null;
+                            sourceElement.classList.remove('selected-square'); // Use stored element
+                            console.log("Piece deselected");
+                            return;
+                        }
+
+                        // Case 2: Clicked another of the player's own pieces - CHANGE selection
+                        const targetIsOwnPiece = (currentPlayer === 'white' && clickedPieceIsWhite) ||
+                                                 (currentPlayer === 'black' && clickedPieceIsBlack);
+
+                        if (targetIsOwnPiece) {
+                             sourceElement.classList.remove('selected-square'); // Remove old highlight
+                             selectedSquare = { element: squareElement, row: row, col: col, piece: clickedPiece };
+                             squareElement.classList.add('selected-square'); // Add new highlight
+                             console.log("Selection changed to:", selectedSquare);
+                             return; // Don't proceed to move
+                        }
+
+                        // Case 3: Clicked an empty square or an opponent's piece - Perform the move
+                        console.log(`Moving ${selectedSquare.piece} from [${sourceRow}, ${sourceCol}] to [${row}, ${col}]`);
+
+                        // Update board state array
+                        boardState[row][col] = selectedSquare.piece;
+                        boardState[sourceRow][sourceCol] = '.';
+
+                        // Switch turn
+                        currentPlayer = (currentPlayer === 'white') ? 'black' : 'white';
+
+                        // Clear selection state
+                        selectedSquare = null; // Clear the selection object
+
+                        // Re-render the entire board (this removes highlights implicitly via innerHTML clearing)
+                        renderChessBoard();
+
+                    } else { // No piece selected, try to select one
+                        if (clickedPiece !== '.') {
+                            const isCurrentPlayerPiece = (currentPlayer === 'white' && clickedPieceIsWhite) ||
+                                                       (currentPlayer === 'black' && clickedPieceIsBlack);
+
+                            if (isCurrentPlayerPiece) {
+                                // Store element along with coords and piece
+                                selectedSquare = { element: squareElement, row: row, col: col, piece: clickedPiece };
+                                squareElement.classList.add('selected-square'); // Highlight selection
+                                console.log("Selected piece:", selectedSquare);
+                            } else {
+                                console.log("Cannot select opponent's piece.");
+                            }
+                        } else {
+                             console.log("Clicked empty square.");
+                        }
+                    }
+                }
+                // --- End Refined Click Handler ---
+
+
+                function initializeChessGame() {
+                     console.log("Initializing Basic Interactive Chess Board");
+                     renderChessBoard();
+                     boardContainer.addEventListener('click', handleSquareClick);
+                 }
+
+                initializeChessGame();
+
+            }
+
+        });
+    </script>
+    <script src="sudoku.js"></script>
+    <script src="ludo.js"></script>
+    <script src="snackladder.js"></script>
+</body>
+</html>
